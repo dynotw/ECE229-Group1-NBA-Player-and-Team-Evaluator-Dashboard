@@ -21,10 +21,9 @@ URL:
 
 
 ## Dataset:
-```
-[NBA Stats Official Websit](https://stats.nba.com)
+
+[NBA Stats Official Website](https://stats.nba.com)
 [NBA PLayer Stats Kaggle DataSet](https://www.kaggle.com/drgilermo/nba-players-stats)
-```
 
 ## Solution 
 * A dashboard that provides the desired functionality:
