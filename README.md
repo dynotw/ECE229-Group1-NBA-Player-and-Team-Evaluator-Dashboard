@@ -4,15 +4,15 @@
 - Hassan Eid, Jinglong Du, Tejas Sadarahalli, Yening Dong, Yuchen Tang, Xiaotian Ma
 
 ## Product Motivation:
-- We have made many insights using NBA data by analyzing multiple statistics:
-      On-court: PTS, AST, etc.
-      Physical: Height, BMI, etc. 
-- Our insights can be extremely useful to users making high-level decisions regarding NBA players.
+1. We have made many insights using NBA data by analyzing multiple statistics:
+      a. On-court: PTS, AST, etc.
+      b. Physical: Height, BMI, etc. 
+2. Our insights can be extremely useful to users making high-level decisions regarding NBA players.
 
 ## User Story:
-User: NBA General Manager
-Goal: Easily visualize large data sets and make predictions based on desired statistic.
-Want: An easy-to-use interface that allows me to compare players and predict the strength of teams made up of selected players.
+1. User: NBA General Manager
+2. Goal: Easily visualize large data sets and make predictions based on desired statistic.
+3. Want: An easy-to-use interface that allows me to compare players and predict the strength of teams made up of selected players.
 
 ## Methodology:
 
@@ -23,6 +23,8 @@ https://stats.nba.com
 https://www.kaggle.com/drgilermo/nba-players-stats
 ```
 ## File Structure:
+
+
 
 ## Instructions on Running Code:
 
@@ -48,5 +50,3 @@ if you are using anaconda you can use:
 ```
 conda install numpy
 ```
-
-### Use Dashboard to Visualize
