@@ -25,6 +25,13 @@ URL:
 https://stats.nba.com
 https://www.kaggle.com/drgilermo/nba-players-stats
 ```
+
+## Solution 
+* A dashboard that provides the desired functionality:
+    * Interactive player comparisons
+    * Highly-detailed player metrics
+    * Team-based evaluations / predictions
+
 ## File Structure:
 
 
