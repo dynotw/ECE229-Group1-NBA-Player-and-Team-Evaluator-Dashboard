@@ -29,9 +29,9 @@ def test_plot_choice():
     proc_stats_df = pd.read_csv('seasons_stats_procecced.csv', index_col=0)
     assert isinstance(proc_stats_df, pd.DataFrame)
     assert not proc_stats_df is None
-    assert ('weight' and 'height'and'Player'and'FG%'and'Year'and'pos_simple'and'MP'and'PER') in proc_stats_df
+    assert ('weight' and 'Height'and'Player'and'FG%'and'Year'and'pos_simple'and'MP'and'PER') in proc_stats_df
     
-    proc_stats_df = proc_stats_df.assign(bmi = proc_stats_df.weight / ((proc_stats_df.height/100) ** 2))
+    proc_stats_df = proc_stats_df.assign(bmi = proc_stats_df.weight / ((proc_stats_df.Height/100) ** 2))
     assert ('bmi') in proc_stats_df
     
     #Value Added = ([Minutes * (PER - PRL)] / 67). PRL (Position Replacement Level) = 11.5 for power forwards, 
@@ -91,9 +91,9 @@ def test_plot_3d():
     proc_stats_df = pd.read_csv('seasons_stats_procecced.csv', index_col=0)
     assert isinstance(proc_stats_df, pd.DataFrame)
     assert not proc_stats_df is None
-    assert ('weight' and 'height'and'Player'and'FG%'and'Year'and'pos_simple'and'MP'and'PER') in proc_stats_df
+    assert ('weight' and 'Height'and'Player'and'FG%'and'Year'and'pos_simple'and'MP'and'PER') in proc_stats_df
     
-    proc_stats_df = proc_stats_df.assign(bmi=proc_stats_df.weight / ((proc_stats_df.height/100) ** 2))
+    proc_stats_df = proc_stats_df.assign(bmi=proc_stats_df.weight / ((proc_stats_df.Height/100) ** 2))
     assert ('bmi') in proc_stats_df
     
     #Value Added = ([Minutes * (PER - PRL)] / 67). PRL (Position Replacement Level) = 11.5 for power forwards, 
