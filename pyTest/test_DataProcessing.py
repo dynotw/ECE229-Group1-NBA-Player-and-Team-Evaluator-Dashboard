@@ -91,9 +91,13 @@ def test_teamStats():
 
 def test_dataproc_bmiper():
     '''
-    pre-processing the dataset for bmiper.py 
-    Input: NBA players attributes dataset
-    Ouput: Processed NBA players attributes dataset for further used in bmiper.py
+    This function pre-processes the dataset for bmiper.py 
+
+    Input - 
+        NBA players attributes dataset
+        
+    Ouput -
+        Processed NBA players attributes dataset for further used in bmiper.py
     '''
 
     player_data_df = pd.read_csv('player_data.csv')
