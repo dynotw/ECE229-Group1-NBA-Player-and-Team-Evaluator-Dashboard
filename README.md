@@ -17,9 +17,6 @@ URL:
 * Goal: Easily visualize large data sets and make predictions based on desired statistic.
 * Want: An easy-to-use interface that allows me to compare players and predict the strength of teams made up of selected players.
 
-## Methodology:
-
-
 ## Dataset:
 
 * [NBA Stats Official Website](https://stats.nba.com)
