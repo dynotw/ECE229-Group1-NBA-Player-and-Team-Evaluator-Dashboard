@@ -4,15 +4,15 @@
 - Hassan Eid, Jinglong Du, Tejas Sadarahalli, Yening Dong, Yuchen Tang, Xiaotian Ma
 
 ## Product Motivation:
-1. We have made many insights using NBA data by analyzing multiple statistics:
-      a. On-court: PTS, AST, etc.
-      b. Physical: Height, BMI, etc. 
-2. Our insights can be extremely useful to users making high-level decisions regarding NBA players.
+* We have made many insights using NBA data by analyzing multiple statistics:
+      * On-court: PTS, AST, etc.
+      * Physical: Height, BMI, etc. 
+* Our insights can be extremely useful to users making high-level decisions regarding NBA players.
 
 ## User Story:
-1. User: NBA General Manager
-2. Goal: Easily visualize large data sets and make predictions based on desired statistic.
-3. Want: An easy-to-use interface that allows me to compare players and predict the strength of teams made up of selected players.
+* User: NBA General Manager
+* Goal: Easily visualize large data sets and make predictions based on desired statistic.
+* Want: An easy-to-use interface that allows me to compare players and predict the strength of teams made up of selected players.
 
 ## Methodology:
 
