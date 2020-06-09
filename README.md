@@ -1,7 +1,7 @@
 # NBA Player and Team Evaluator Dashboard
 
 ## User Dashboard
-URL: 
+URL: http://44.230.28.148:8866/
 
 ## Team Members
 - Hassan Eid, Jinglong Du, Tejas Sadarahalli, Yening Dong, Yuchen Tang, Xiaotian Ma
