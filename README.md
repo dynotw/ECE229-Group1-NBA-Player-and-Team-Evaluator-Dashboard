@@ -22,8 +22,8 @@ URL:
 
 ## Dataset:
 ```
-https://stats.nba.com
-https://www.kaggle.com/drgilermo/nba-players-stats
+[NBA Stats Official Websit](https://stats.nba.com)
+[NBA PLayer Stats Kaggle DataSet](https://www.kaggle.com/drgilermo/nba-players-stats)
 ```
 
 ## Solution 
