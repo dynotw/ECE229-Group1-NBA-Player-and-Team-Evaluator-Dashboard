@@ -5,8 +5,8 @@
 
 ## Product Motivation:
 * We have made many insights using NBA data by analyzing multiple statistics:
-      * On-court: PTS, AST, etc.
-      * Physical: Height, BMI, etc. 
+      ** On-court: PTS, AST, etc.
+      ** Physical: Height, BMI, etc. 
 * Our insights can be extremely useful to users making high-level decisions regarding NBA players.
 
 ## User Story:
