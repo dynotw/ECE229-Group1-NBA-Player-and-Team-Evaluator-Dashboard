@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>test_RadarPlot &mdash; NBA Team and Player Evaluator  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> NBA Team and Player Evaluator
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Set Up and Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">Data Scraping and Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plots.html">Plots and Interactive Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test.html">Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NBA Team and Player Evaluator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>test_RadarPlot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for test_RadarPlot</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">cufflinks</span> <span class="k">as</span> <span class="nn">cf</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">plotly.offline</span> <span class="k">as</span> <span class="nn">py</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">cf</span><span class="o">.</span><span class="n">go_offline</span><span class="p">()</span> <span class="c1"># required to use plotly offline (no account required).</span>
+<span class="n">py</span><span class="o">.</span><span class="n">init_notebook_mode</span><span class="p">()</span> <span class="c1"># graphs charts inline (IPython).</span>
+
+<span class="kn">import</span> <span class="nn">test_DataProcessing</span> <span class="k">as</span> <span class="nn">tdp</span>
+<span class="kn">import</span> <span class="nn">test_WinPredict</span> <span class="k">as</span> <span class="nn">twp</span>
+<span class="c1"># import WinPredict as WP</span>
+
+<div class="viewcode-block" id="test_radar_player"><a class="viewcode-back" href="../test_RadarPlot.html#test_RadarPlot.test_radar_player">[docs]</a><span class="k">def</span> <span class="nf">test_radar_player</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    tests the radar plot for player stats</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># 1.Retrieve the correct .csv File first</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;2019-20.csv&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">stats</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;PTS&#39;</span> <span class="ow">and</span> <span class="s1">&#39;AST&#39;</span> <span class="ow">and</span> <span class="s1">&#39;REB&#39;</span> <span class="ow">and</span> <span class="s1">&#39;STL&#39;</span> <span class="ow">and</span> <span class="s1">&#39;BLK&#39;</span><span class="ow">and</span><span class="s1">&#39;TOV&#39;</span><span class="ow">and</span><span class="s1">&#39;FGM&#39;</span><span class="ow">and</span><span class="s1">&#39;FGA&#39;</span><span class="ow">and</span><span class="s1">&#39;FG_PCT&#39;</span><span class="ow">and</span><span class="s1">&#39;FTM&#39;</span><span class="ow">and</span><span class="s1">&#39;FTA&#39;</span><span class="ow">and</span><span class="s1">&#39;FT_PCT&#39;</span><span class="ow">and</span><span class="s1">&#39;OREB&#39;</span><span class="ow">and</span> <span class="s1">&#39;DREB&#39;</span><span class="ow">and</span><span class="s1">&#39;GP&#39;</span><span class="ow">and</span><span class="s1">&#39;TEAM&#39;</span><span class="ow">and</span><span class="s1">&#39;PLAYER&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">stats</span>
+
+    <span class="c1"># 2.Process Data from  .csv file and only maintain columns you need </span>
+    <span class="n">player_average</span> <span class="o">=</span> <span class="n">tdp</span><span class="o">.</span><span class="n">test_playerStats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player_average</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">player_average</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;PTS&#39;</span> <span class="ow">and</span> <span class="s1">&#39;AST&#39;</span> <span class="ow">and</span> <span class="s1">&#39;REB&#39;</span> <span class="ow">and</span> <span class="s1">&#39;STL&#39;</span> <span class="ow">and</span> <span class="s1">&#39;BLK&#39;</span><span class="ow">and</span><span class="s1">&#39;TOV&#39;</span><span class="ow">and</span><span class="s1">&#39;FGM&#39;</span><span class="ow">and</span><span class="s1">&#39;FGA&#39;</span><span class="ow">and</span><span class="s1">&#39;FG%&#39;</span><span class="ow">and</span><span class="s1">&#39;FTM&#39;</span><span class="ow">and</span><span class="s1">&#39;FTA&#39;</span><span class="ow">and</span><span class="s1">&#39;FT%&#39;</span><span class="ow">and</span><span class="s1">&#39;OREB&#39;</span><span class="ow">and</span> <span class="s1">&#39;DREB&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">player_average</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;James Harden&#39;</span><span class="p">,</span><span class="s1">&#39;Jayson Tatum&#39;</span><span class="p">,</span><span class="s1">&#39;Trae Young&#39;</span><span class="p">,</span><span class="s1">&#39;Anthony Davis&#39;</span><span class="p">,</span><span class="s1">&#39;Ben Simmons&#39;</span><span class="p">]</span>
+    <span class="n">atributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PTS&#39;</span><span class="p">,</span><span class="s1">&#39;AST&#39;</span><span class="p">,</span><span class="s1">&#39;REB&#39;</span><span class="p">,</span><span class="s1">&#39;STL&#39;</span><span class="p">,</span><span class="s1">&#39;BLK&#39;</span><span class="p">,</span><span class="s1">&#39;TOV&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atributes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+        
+    <span class="c1"># 3.Set up and extract data to be ploted - each row at a time (for each player)</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span>
+    
+    <span class="n">player_stats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">player_stats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                           <span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                           <span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">4</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">player_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">5</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]]]</span>
+        
+    
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player_stats</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">player_stats</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+    
+    <span class="c1"># 4.Loop the data around to be able to compatibale with radar plots</span>
+    <span class="n">player_stats_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">player_stats_mod</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">player_stats</span><span class="p">[</span><span class="n">i</span><span class="p">],[</span><span class="n">player_stats</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]))</span>
+    <span class="n">labels_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">labels</span><span class="p">,[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+    
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player_stats_mod</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">player_stats_mod</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">labels_mod</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_mod</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+        
+    <span class="c1"># Plot the data</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatterpolar</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">player_stats_mod</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">theta</span><span class="o">=</span><span class="n">labels_mod</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">polar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">radialaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])),</span><span class="n">showlegend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        
+    <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="test_radar_team"><a class="viewcode-back" href="../test_RadarPlot.html#test_RadarPlot.test_radar_team">[docs]</a><span class="k">def</span> <span class="nf">test_radar_team</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    tests the radar plot for team stats</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># season,name1,name2,name3,name4,name5,att1,att2,att3,att4,att5,att6,teamA,teamB</span>
+    
+    <span class="c1"># 1.Retrieve the correct .csv File first</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Team_2019-20.csv&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">stats</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;PTS&#39;</span> <span class="ow">and</span> <span class="s1">&#39;AST&#39;</span> <span class="ow">and</span> <span class="s1">&#39;REB&#39;</span> <span class="ow">and</span> <span class="s1">&#39;STL&#39;</span> <span class="ow">and</span> <span class="s1">&#39;BLK&#39;</span><span class="ow">and</span><span class="s1">&#39;TOV&#39;</span><span class="ow">and</span><span class="s1">&#39;FGM&#39;</span><span class="ow">and</span><span class="s1">&#39;FGA&#39;</span><span class="ow">and</span><span class="s1">&#39;FG_PCT&#39;</span><span class="ow">and</span><span class="s1">&#39;FTM&#39;</span><span class="ow">and</span><span class="s1">&#39;FTA&#39;</span><span class="ow">and</span><span class="s1">&#39;FT_PCT&#39;</span><span class="ow">and</span><span class="s1">&#39;OREB&#39;</span><span class="ow">and</span> <span class="s1">&#39;DREB&#39;</span><span class="ow">and</span><span class="s1">&#39;GP&#39;</span><span class="ow">and</span><span class="s1">&#39;TEAM_NAME&#39;</span><span class="ow">and</span><span class="s1">&#39;W&#39;</span><span class="ow">and</span><span class="s1">&#39;W_PCT&#39;</span> <span class="ow">and</span><span class="s1">&#39;L&#39;</span><span class="ow">and</span><span class="s1">&#39;BLKA&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">stats</span>
+    
+    <span class="c1"># 2.Process Data from  .csv file and only maintain columns you need </span>
+    <span class="n">team_average</span> <span class="o">=</span> <span class="n">tdp</span><span class="o">.</span><span class="n">test_teamStats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">team_average</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">team_average</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Win%&#39;</span><span class="ow">and</span><span class="s1">&#39;PTS&#39;</span> <span class="ow">and</span> <span class="s1">&#39;AST&#39;</span> <span class="ow">and</span> <span class="s1">&#39;REB&#39;</span> <span class="ow">and</span> <span class="s1">&#39;STL&#39;</span> <span class="ow">and</span> <span class="s1">&#39;BLK&#39;</span><span class="ow">and</span><span class="s1">&#39;TOV&#39;</span><span class="ow">and</span><span class="s1">&#39;FGM&#39;</span><span class="ow">and</span><span class="s1">&#39;FGA&#39;</span><span class="ow">and</span><span class="s1">&#39;FG%&#39;</span><span class="ow">and</span><span class="s1">&#39;FTM&#39;</span><span class="ow">and</span><span class="s1">&#39;FTA&#39;</span><span class="ow">and</span><span class="s1">&#39;FT%&#39;</span><span class="ow">and</span><span class="s1">&#39;OREB&#39;</span><span class="ow">and</span> <span class="s1">&#39;DREB&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">team_average</span>
+    
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Boston Celtics&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston Rockets&#39;</span><span class="p">,</span> <span class="s1">&#39;Atlanta Hawks&#39;</span><span class="p">,</span> <span class="s1">&#39;Toronto Raptors&#39;</span><span class="p">,</span> <span class="s1">&#39;Los Angeles Lakers&#39;</span><span class="p">]</span>
+    <span class="n">atributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PTS&#39;</span><span class="p">,</span><span class="s1">&#39;AST&#39;</span><span class="p">,</span><span class="s1">&#39;REB&#39;</span><span class="p">,</span><span class="s1">&#39;STL&#39;</span><span class="p">,</span><span class="s1">&#39;BLK&#39;</span><span class="p">,</span><span class="s1">&#39;TOV&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atributes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    
+    <span class="c1"># 3.Set up and extract data to be ploted - each row at a time (for each player)</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atributes</span><span class="p">)</span>
+    
+    <span class="n">team_stats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">team_stats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                         <span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">2</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">3</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                         <span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">4</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">team_average</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">5</span><span class="p">]][</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]]]</span>
+    
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">team_stats</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">team_stats</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+    
+    
+    <span class="c1"># 4.Loop the data around to be able to compatibale with radar plots</span>
+    <span class="n">team_stats_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">team_stats_mod</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">team_stats</span><span class="p">[</span><span class="n">i</span><span class="p">],[</span><span class="n">team_stats</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]))</span>
+        
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">team_stats_mod</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">team_stats_mod</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        
+    <span class="c1">###########################################</span>
+    <span class="c1">###########################################</span>
+    <span class="c1">###########################################</span>
+    
+    <span class="n">arealist</span> <span class="o">=</span> <span class="p">[</span><span class="n">twp</span><span class="o">.</span><span class="n">test_TrangleArea</span><span class="p">()</span> <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">team_stats_mod</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arealist</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">arealist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">team_stats_mod</span><span class="p">)</span>
+    
+    <span class="n">teamID</span> <span class="o">=</span> <span class="n">twp</span><span class="o">.</span><span class="n">test_nametolist</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">teamID</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">arealist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    
+    <span class="n">wincomp</span> <span class="o">=</span> <span class="n">twp</span><span class="o">.</span><span class="n">test_teamComp1</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wincomp</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Team A has a&quot;</span> <span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">wincomp</span><span class="o">*</span><span class="mi">100</span> <span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">,</span> <span class="s2">&quot;</span><span class="si">% c</span><span class="s2">hance to win over Team B&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># print names + area pair</span>
+    <span class="n">TheAreapair</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="s2">&quot;, Area under team radar = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">arealist</span><span class="p">)]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">teamID</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">arealist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">team_stats_mod</span><span class="p">)</span>
+    
+    <span class="c1">###########################################</span>
+    <span class="c1">###########################################</span>
+    <span class="c1">###########################################</span>
+    
+    <span class="n">labels_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">labels</span><span class="p">,[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">labels_mod</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_mod</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+                
+    <span class="c1"># Plot the data</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+   
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatterpolar</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">team_stats_mod</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">theta</span><span class="o">=</span><span class="n">labels_mod</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">TheAreapair</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">polar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">radialaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])),</span><span class="n">showlegend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+     
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="k">return</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, ECE 229 Group 1
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

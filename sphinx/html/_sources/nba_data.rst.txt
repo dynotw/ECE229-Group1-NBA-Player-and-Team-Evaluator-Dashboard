@@ -1,0 +1,7 @@
+nba\_data module
+================
+
+.. automodule:: nba_data
+   :members:
+   :undoc-members:
+   :show-inheritance:

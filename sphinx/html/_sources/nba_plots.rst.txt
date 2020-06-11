@@ -1,0 +1,7 @@
+nba\_plots module
+=================
+
+.. automodule:: nba_plots
+   :members:
+   :undoc-members:
+   :show-inheritance:

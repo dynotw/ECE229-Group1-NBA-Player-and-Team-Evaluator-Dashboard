@@ -1,0 +1,7 @@
+test\_AtrributeDisrabution module
+=================================
+
+.. automodule:: test_AtrributeDisrabution
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DataScraping module &mdash; NBA Team and Player Evaluator  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DataProcessing module" href="DataProcessing.html" />
+    <link rel="prev" title="Data Scraping and Processing" href="data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NBA Team and Player Evaluator
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="data.html">Data Scraping and Processing</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DataScraping module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataProcessing.html">DataProcessing module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plots.html">Plotting Tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NBA Team and Player Evaluator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="data.html">Data Scraping and Processing</a> &raquo;</li>
+        
+      <li>DataScraping module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DataScraping.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-DataScraping">
+<span id="datascraping-module"></span><h1>DataScraping module<a class="headerlink" href="#module-DataScraping" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="DataScraping.get_player_data">
+<code class="sig-prename descclassname">DataScraping.</code><code class="sig-name descname">get_player_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sea</span></em>, <em class="sig-param"><span class="n">cat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataScraping.html#get_player_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataScraping.get_player_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Pandas Dataframe of the stats for a given season and category.
+For example, sea = ‘2019-2020’ and cat = ‘AST’, will get the amount
+of assists for players in the 2019-2020 season sorted by mosts assists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sea</strong> (<em>string</em>) – The NBA Regular Season for which you want to retrive data</p></li>
+<li><p><strong>cat</strong> (<em>string</em>) – The Category for which you want the Pandas data frame to be order in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Pandas DataFrame of the stats in respect to the above mentioned criteria</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="DataScraping.get_team_data">
+<code class="sig-prename descclassname">DataScraping.</code><code class="sig-name descname">get_team_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sea</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataScraping.html#get_team_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataScraping.get_team_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Pandas Dataframe of the stats for a given season and category.
+For example, sea = ‘2019-2020’ and cat = ‘AST’, will get the amount
+of assists for players in the 2019-2020 season sorted by mosts assists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sea</strong> (<em>string</em>) – The NBA Regular Season for which you want to retrive data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Pandas DataFrame of the stats in respect to the above mentioned criteria</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="DataScraping.shot_ranges">
+<code class="sig-prename descclassname">DataScraping.</code><code class="sig-name descname">shot_ranges</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sea</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataScraping.html#shot_ranges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataScraping.shot_ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a season (ex. 2019-2020), this will return a DataFrame of the
+players shot statistics from different ranges on the basketball court.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sea</strong> (<em>string</em>) – The NBA Regular Season for which you want to retrieve data. (ex. ‘2019-2020’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Pandas DataFrame of the shot statistics from different distances.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DataProcessing.html" class="btn btn-neutral float-right" title="DataProcessing module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data.html" class="btn btn-neutral float-left" title="Data Scraping and Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, ECE 229 Group 1
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

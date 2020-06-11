@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nba_plots module &mdash; NBA Team and Player Evaluator  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NBA Team and Player Evaluator
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Scraping Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plots.html">Plotting Tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NBA Team and Player Evaluator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>nba_plots module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/nba_plots.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-nba_plots">
+<span id="nba-plots-module"></span><h1>nba_plots module<a class="headerlink" href="#module-nba_plots" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="nba_plots.distribution">
+<code class="sig-prename descclassname">nba_plots.</code><code class="sig-name descname">distribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">season</span></em>, <em class="sig-param"><span class="n">graph</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nba_plots.html#distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nba_plots.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface for creating interactive plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>season</strong> (<em>int</em>) – year of desired season (ex. 2018)</p></li>
+<li><p><strong>graph</strong> (<em>int</em>) – selects which graph is to be created (1 = Distribution, 2 = Bi-Distribution, 3 = Contour, 4 = KDE)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nba_plots.plot_bidistribution">
+<code class="sig-prename descclassname">nba_plots.</code><code class="sig-name descname">plot_bidistribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category1</span></em>, <em class="sig-param"><span class="n">category2</span></em>, <em class="sig-param"><span class="n">stats</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nba_plots.html#plot_bidistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nba_plots.plot_bidistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the bivariate distribution of the selected tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category1</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>category2</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>stats</strong> (<em>pd.DataFrame</em>) – the dataframe with nba data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bivariate distribution of the selected tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nba_plots.plot_contour">
+<code class="sig-prename descclassname">nba_plots.</code><code class="sig-name descname">plot_contour</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category1</span></em>, <em class="sig-param"><span class="n">category2</span></em>, <em class="sig-param"><span class="n">stats</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nba_plots.html#plot_contour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nba_plots.plot_contour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the bivariate contour of the selected tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category1</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>category2</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>stats</strong> (<em>pd.DataFrame</em>) – the dataframe with nba data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bivariate contour of the selected tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nba_plots.plot_distribution">
+<code class="sig-prename descclassname">nba_plots.</code><code class="sig-name descname">plot_distribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category1</span></em>, <em class="sig-param"><span class="n">stats</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nba_plots.html#plot_distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nba_plots.plot_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the distribution of the selected tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category1</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>stats</strong> (<em>pd.DataFrame</em>) – the dataframe with nba data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>distribution plot of the selected tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nba_plots.plot_kdeaverage">
+<code class="sig-prename descclassname">nba_plots.</code><code class="sig-name descname">plot_kdeaverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category1</span></em>, <em class="sig-param"><span class="n">stats</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nba_plots.html#plot_kdeaverage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nba_plots.plot_kdeaverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the distribution’s kde curve of the average value of the selected tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category1</strong> (<em>string</em>) – a category of the dataset</p></li>
+<li><p><strong>stats</strong> (<em>pd.DataFrame</em>) – the dataframe with nba data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>distribution’s kde curve of the average value of selected tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, ECE 229 Group 1
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

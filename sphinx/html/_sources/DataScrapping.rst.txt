@@ -1,0 +1,7 @@
+DataScrapping module
+====================
+
+.. automodule:: DataScrapping
+   :members:
+   :undoc-members:
+   :show-inheritance:

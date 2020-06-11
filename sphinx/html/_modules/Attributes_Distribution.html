@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Attributes_Distribution &mdash; NBA Team and Player Evaluator  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> NBA Team and Player Evaluator
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Set Up and Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">Data Scraping and Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plots.html">Plots and Interactive Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test.html">Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NBA Team and Player Evaluator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>Attributes_Distribution</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Attributes_Distribution</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">interact_manual</span>
+
+
+
+<div class="viewcode-block" id="plot_contour"><a class="viewcode-back" href="../Attributes_Distribution.html#Attributes_Distribution.plot_contour">[docs]</a><span class="k">def</span> <span class="nf">plot_contour</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="n">category2</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plots the bivariate contour of the selected tag.</span>
+
+<span class="sd">    :param category1: a category of the dataset</span>
+<span class="sd">    :type category1: string</span>
+
+<span class="sd">    :param category2: a category of the dataset</span>
+<span class="sd">    :type category2: string</span>
+
+<span class="sd">    :param stats: the dataframe with nba data</span>
+<span class="sd">    :type stats: pd.DataFrame</span>
+
+<span class="sd">    :return: bivariate contour of the selected tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category2</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1">#     season_stats = pd.read_csv(str(season)+&#39;-&#39;+ str(season + 1)+ &quot;.csv&quot;)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">stats</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">category1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">category2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_distribution"><a class="viewcode-back" href="../Attributes_Distribution.html#Attributes_Distribution.plot_distribution">[docs]</a><span class="k">def</span> <span class="nf">plot_distribution</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plots the distribution of the selected tag.</span>
+
+<span class="sd">    :param category1: a category of the dataset</span>
+<span class="sd">    :type category1: string</span>
+
+<span class="sd">    :param stats: the dataframe with nba data</span>
+<span class="sd">    :type stats: pd.DataFrame</span>
+
+<span class="sd">    :return: distribution plot of the selected tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1">#     season_stats = pd.read_csv(str(season)+&#39;-&#39;+ str(season + 1)+ &quot;.csv&quot;)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">stats</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ratio&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">category1</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">category1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_bidistribution"><a class="viewcode-back" href="../Attributes_Distribution.html#Attributes_Distribution.plot_bidistribution">[docs]</a><span class="k">def</span> <span class="nf">plot_bidistribution</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="n">category2</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plots the bivariate distribution of the selected tag.</span>
+
+<span class="sd">    :param category1: a category of the dataset</span>
+<span class="sd">    :type category1: string</span>
+
+<span class="sd">    :param category2: a category of the dataset</span>
+<span class="sd">    :type category2: string</span>
+
+<span class="sd">    :param stats: the dataframe with nba data</span>
+<span class="sd">    :type stats: pd.DataFrame</span>
+
+<span class="sd">    :return: bivariate distribution of the selected tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category2</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">stats</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+    <span class="n">dsf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">category1</span><span class="p">,</span> <span class="n">category2</span><span class="p">])</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">category1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">category2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dsf</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_kdeaverage"><a class="viewcode-back" href="../Attributes_Distribution.html#Attributes_Distribution.plot_kdeaverage">[docs]</a><span class="k">def</span> <span class="nf">plot_kdeaverage</span><span class="p">(</span><span class="n">category1</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plots the distribution&#39;s kde curve of the average value of the selected tag.</span>
+
+<span class="sd">    :param category1: a category of the dataset</span>
+<span class="sd">    :type category1: string</span>
+
+<span class="sd">    :param stats: the dataframe with nba data</span>
+<span class="sd">    :type stats: pd.DataFrame</span>
+
+<span class="sd">    :return: distribution&#39;s kde curve of the average value of selected tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">category1</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability Density&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> per game&#39;</span> <span class="o">%</span> <span class="n">category1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">category1</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="distribution"><a class="viewcode-back" href="../Attributes_Distribution.html#Attributes_Distribution.distribution">[docs]</a><span class="k">def</span> <span class="nf">distribution</span><span class="p">(</span><span class="n">season</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Interface for creating interactive plots.</span>
+
+<span class="sd">    :param season: year of desired season (ex. 2018)</span>
+<span class="sd">    :type season: int</span>
+
+<span class="sd">    :param graph: selects which graph is to be created (1 = Distribution, 2 = Bi-Distribution, 3 = Contour, 4 = KDE)</span>
+<span class="sd">    :type graph: int</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">season_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">season</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">season</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">graph</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">category1_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">widgets</span><span class="o">.</span><span class="n">interact</span><span class="p">(</span><span class="n">plot_distribution</span><span class="p">,</span> <span class="n">category1</span><span class="o">=</span><span class="n">category1_option</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">season_stats</span><span class="p">))</span>
+        <span class="c1"># fixed is to fix arguments, which isn&#39;t gotten from this place&#39;s interact</span>
+
+    <span class="k">elif</span> <span class="p">(</span><span class="n">graph</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+
+        <span class="n">category1_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">category2_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;MIN&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">widgets</span><span class="o">.</span><span class="n">interact</span><span class="p">(</span><span class="n">plot_contour</span><span class="p">,</span> <span class="n">category1</span><span class="o">=</span><span class="n">category1_option</span><span class="p">,</span> <span class="n">category2</span><span class="o">=</span><span class="n">category2_option</span><span class="p">,</span>
+                         <span class="n">stats</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">season_stats</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="p">(</span><span class="n">graph</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+
+        <span class="n">category1_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">category2_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">widgets</span><span class="o">.</span><span class="n">interact</span><span class="p">(</span><span class="n">plot_bidistribution</span><span class="p">,</span> <span class="n">category1</span><span class="o">=</span><span class="n">category1_option</span><span class="p">,</span> <span class="n">category2</span><span class="o">=</span><span class="n">category2_option</span><span class="p">,</span>
+                         <span class="n">stats</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">season_stats</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="p">(</span><span class="n">graph</span> <span class="o">==</span> <span class="mi">4</span><span class="p">):</span>
+
+        <span class="n">category1_option</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FGM&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;FGA&#39;</span><span class="p">,</span> <span class="s1">&#39;FG_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3M&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3A&#39;</span><span class="p">,</span> <span class="s1">&#39;FG3_PCT&#39;</span><span class="p">,</span> <span class="s1">&#39;FTM&#39;</span><span class="p">,</span> <span class="s1">&#39;FTA&#39;</span><span class="p">,</span> <span class="s1">&#39;FT_PCT&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;OREB&#39;</span><span class="p">,</span> <span class="s1">&#39;DREB&#39;</span><span class="p">,</span> <span class="s1">&#39;REB&#39;</span><span class="p">,</span> <span class="s1">&#39;AST&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">,</span> <span class="s1">&#39;TOV&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;EFF&#39;</span><span class="p">],</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Category:&#39;</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">widgets</span><span class="o">.</span><span class="n">interact</span><span class="p">(</span><span class="n">plot_kdeaverage</span><span class="p">,</span> <span class="n">category1</span><span class="o">=</span><span class="n">category1_option</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">season_stats</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, ECE 229 Group 1
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

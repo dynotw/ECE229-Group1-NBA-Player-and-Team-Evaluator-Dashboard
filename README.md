@@ -3,6 +3,9 @@
 ## User Dashboard
 URL: http://44.230.28.148:8866/
 
+## Documentation
+URL: http://34.221.254.89/
+
 ## Team Members
 - Hassan Eid, Jinglong Du, Tejas Sadarahalli, Yening Dong, Yuchen Tang, Xiaotian Ma
 
@@ -101,3 +104,6 @@ python3 -m pytest --con-report -term --con=/pyTest
 ```
 tested on macOS Catalina 10.15.4 using Python 3.6.3
 for other OS test command may vary 
+
+### To See Sphinx Documentation Locally
+open ./ECE229-Group1-NBA-Player-and-Team-Evaluator-Dashboard/sphinx/html/index.html in a web browser

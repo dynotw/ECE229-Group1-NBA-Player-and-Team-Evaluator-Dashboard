@@ -1,0 +1,7 @@
+Atrributes\_Distribution module
+===============================
+
+.. automodule:: Atrributes_Distribution
+   :members:
+   :undoc-members:
+   :show-inheritance:
