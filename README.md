@@ -45,7 +45,7 @@ URL: http://34.221.254.89/
 |   |test_WinPredict.py
 |   |test_bmiper.py
 |
-|sphinx
+|sphinx                                 <- Conatins all required files to run documentaion URL
 |   |html
 |   |rst
 |   |src
