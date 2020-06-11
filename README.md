@@ -60,23 +60,45 @@ URL: http://44.230.28.148:8866/
 
 -Python version: Python 3.6.6 64-bit
 
-### Required Packages
+### Required Packages and Dependencies
 
 1. numpy
 2. pandas
 3. sklearn
+4. logging
+5. requests
+6. json
+7. math
 
 #### Plotting Packages
 
-1. Seaborn
-2. Plotly 
+1. matplotlib
+2. seaborn
+3. plotly Express
+4. plotly graph_objs
+5. cufflinks
+
+#### Widgets Packages 
+
+1. ipywidgets
 
 For installing these packages, you can use either pip to install packages. For example,
 ```
 pip3 install numpy
 ```
 if you are using anaconda you can use:
-
 ```
 conda install numpy
 ```
+### To Run code
+
+Download/clone git repository and run the Main.ipynb Jupyter notebook
+
+### To Run pytest
+
+travel to the directory of the repository on local machine and run
+```
+python3 -m pytest --con-report -term --con=/pyTest
+```
+tested on macOS Catalina 10.15.4 using Python 3.6.3
+for other OS test command may vary 
