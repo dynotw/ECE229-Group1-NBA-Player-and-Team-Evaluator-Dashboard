@@ -58,7 +58,7 @@ URL: http://44.230.28.148:8866/
 ```
 ## Instructions on Running Code
 
--Python version: Python 3.6.6 64-bit
+-Python version: Python 3.6.3 64-bit
 
 ### Required Packages and Dependencies
 
