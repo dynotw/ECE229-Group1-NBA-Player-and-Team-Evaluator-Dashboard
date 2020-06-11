@@ -54,7 +54,6 @@ URL: http://44.230.28.148:8866/
 |ShotDisFreq.py
 |WinPredict.py
 |bmiper.py
-
 ```
 ## Instructions on Running Code
 
