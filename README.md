@@ -29,9 +29,33 @@ URL: http://44.230.28.148:8866/
     * Team-based evaluations / predictions
 
 ## File Structure
+```
+|pyTest                                 <- Contains all test scripts for the project
+|   |coverage_report.pdf                <- Coverage report of pytest 
+|   |test_AtrributeDisrabution.py 
+|   |test_BestFeatures.py
+|   |test_DataProcessing.py
+|   |test_DataScrapping.py
+|   |test_RadarPlot.py
+|   |test_SeasonData.py
+|   |test_ShotDisFreq.py
+|   |test_WinPredict.py
+|   |test_bmiper.py
+|
+|Atrributes_Distribution.py             
+|BestFeatures.py
+|DataProcessing.py
+|DataScrapping.py
+|Main.ipynb                             <- Main Jupyter Notebook file that contains all code required and visualize the dashboard
+|NBA.png                                <- Image for glossery of acronyms
+|README.md                              <- Github Documenation file
+|RadarPlot.py
+|Season_Data.py
+|ShotDisFreq.py
+|WinPredict.py
+|bmiper.py
 
-
-
+```
 ## Instructions on Running Code
 
 -Python version: Python 3.6.6 64-bit
