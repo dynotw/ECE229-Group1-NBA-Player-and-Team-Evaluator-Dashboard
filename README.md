@@ -1,7 +1,7 @@
 # NBA Player and Team Evaluator Dashboard
 
 ## User Dashboard
-URL: http://44.230.28.148:8866/
+URL: http://100.24.236.203:8866/
 
 ## Documentation
 URL: http://34.221.254.89/
