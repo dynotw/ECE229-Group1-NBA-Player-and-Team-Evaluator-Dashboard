@@ -24,6 +24,7 @@ URL: http://34.221.254.89/
 
 * [NBA Stats Official Website](https://stats.nba.com)
 * [NBA Player Stats Kaggle Dataset](https://www.kaggle.com/drgilermo/nba-players-stats)
+* All scrapped data (.csv files) are in [Dataset](https://github.com/dynotw/ECE229-NBA-Player-and-Team-Evaluator/tree/master/Dataset)
 
 ## Solution 
 * A dashboard that provides the desired functionality:
